@@ -1,12 +1,19 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# `Active Storage`のアタッチメント用に`open-uri`を要求
+require 'open-uri'
 
-name = Faker::Commerce.product_name  # 商品名
-description = "This #{name.downcase} was worn by #{Faker::Name.name} in #{Faker::Date.backward(days: 365).year} in #{Faker::Address.city}"
-price = Faker::Commerce.price(range: 1000..300000)  # 価格
-stock = Faker::Number.between(from: 1, to: 10)  # 在庫
+100.times do |i|
+  product = Product.new(
+    name: Faker::Commerce.product_name,
+    description: Faker::Lorem.sentence,
+    price: Faker::Commerce.price(range: 0..100.0),
+    stock: Faker::Number.between(from: 1, to: 100)
+  )
+
+  # ダウンロードした画像のパス
+  file_path = Rails.root.join('download_images', "image_#{i}.jpg")
+
+  # 画像ファイルを開き、Active Storageを使ってアタッチ
+  product.image.attach(io: File.open(file_path), filename: "image_#{i}.jpg")
+
+  product.save!
+end

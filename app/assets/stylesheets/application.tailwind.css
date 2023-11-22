@@ -5,3 +5,31 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/*ページネーション自体のデザイン*/
+.pagination>li>a {          
+    border: none;     /*枠線をなくす*/
+    color: #94A3B8;   /*文字の色を変える*/
+    padding: 10px;
+
+  }
+  
+  ul.pagination {
+    display: flex;          /* フレックスコンテナとして定義 */
+    list-style-type: none;  /* リストマーカーを非表示 */
+    padding-left: 0;        /* 左のパディングを削除 */
+    margin-block-start: 0;  /* 上のマージンを削除 */
+    margin-block-end: 0;    /* 下のマージンを削除 */
+    justify-content: center; /* 中央揃えにする場合 */
+  }
+
+
+  
+
+  /* 表示しているページ番号のデザイン */
+  .pagination>.active>a {     
+    background: #6366F1;     /*背景の色を変える*/
+    color: white;
+    border-radius: 6px;     /*角を丸くする*/
+  }
+  
