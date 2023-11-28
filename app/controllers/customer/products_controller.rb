@@ -4,7 +4,13 @@ class Customer::ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      redirect_to products_path, flash: { error: 'Product could not be found' }
+    else
+      @cart_item = CartItem.new
+    end
   end
 
   private
