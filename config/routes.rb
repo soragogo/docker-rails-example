@@ -22,6 +22,13 @@ Rails.application.routes.draw do
         patch 'decrease'
       end
     end
+    resources :checkouts, only: [:create]
+    resources :webhooks, only: [:create]
+    resources :orders, only: %i[index show] do
+      collection do
+        get 'success'
+      end
+    end
   end
 
   get '/up/', to: 'up#index', as: :up
