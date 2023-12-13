@@ -3,7 +3,7 @@ class Admin::CustomersController < ApplicationController
   before_action :set_customer, only: %i[show update]
 
   def index
-    @customers = Customer.preload(:orders).latest
+    @customers = Customer.latest
   end
 
   def show; end
