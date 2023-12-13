@@ -76,5 +76,18 @@ Rails.application.configure do
   #
   # Docker supports a bunch of ranges so let's just support everything. This
   # isn't insecure due to only running in development.
+
+  config.action_mailer.default_url_options = {  host: 'localhost', port: 8000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    domain: 'gmail.com',
+    port: 587,
+    user_name: Rails.application.credentials.dig(:gmail, :email),
+    password: Rails.application.credentials.dig(:gmail, :app_password),
+    authentication: :login
+  }
+
+  
   config.web_console.allowed_ips = ["0.0.0.0/0"]
 end
