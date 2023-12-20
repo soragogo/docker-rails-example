@@ -1,8 +1,10 @@
 class Customer < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :timeoutable, :confirmable
   with_options presence: true do
     validates :name
     validates :status

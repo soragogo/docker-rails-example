@@ -1,36 +1,83 @@
 ```mermaid
 erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    CUSTOMER ||--o{ ADDRESS : "has"
-    ADDRESS ||--o{ ORDER : "sends to"
-    PRODUCT ||--o{ LINE-ITEM : "includes"
-    PRODUCT {
-        int id
-        string name
-        float price
-    }
-    CUSTOMER {
-        int id
+    CUSTOMERS ||--o{ ORDERS : ""
+    CUSTOMERS ||--o{ CART_ITEMS : ""
+    CUSTOMERS ||--o{ LIKES : ""
+    ORDERS ||--|{ ORDER_DETAILS : ""
+    PRODUCTS ||--o{ ORDER_DETAILS : ""
+    PRODUCTS ||--o{ CART_ITEMS : ""
+    PRODUCTS ||--o{ LIKES: ""
+
+    CUSTOMERS {
+        int id PK
         string name
         string email
+        string password 
+        string status
+        datetime created_at
+        datetime updated_at
     }
-    ORDER {
-        int id
-        date orderDate
-        int customerId
+
+    ADMINS {
+        int id PK
+        string email
+        string password
+        datetime created_at
+        datetime updated_at
     }
-    LINE-ITEM {
-        int orderId
-        int productId
+
+
+    CART_ITEMS {
+        int id PK
+        int customer_id FK
+        int product_id FK
         int quantity
-        float totalPrice
+        datetime created_at
+        datetime updated_at
     }
-    ADDRESS {
-        int id
-        string street
-        string city
-        string state
-        string country
-        string postalCode
+
+    ORDERS {
+        int id PK
+        int customer_id FK
+        string postal_code
+        string prefecture
+        string address1
+        string address2
+        string postage
+        int postage
+        int billing_amount
+        int status
+        datetime created_at
+        datetime updated_at
     }
+
+
+
+    PRODUCTS{
+        int id PK
+        string name
+        string description
+        int price
+        int stock
+        datetime created_at
+        datetime updated_at
+    }
+
+    ORDER_DETAILS{
+        int id PK
+        int product_id FK
+        int order_id FK
+        int price
+        int quantity
+        datetime created_at
+        datetime updated_at
+    }
+
+    LIKES{
+        int id PK
+        int customer_id FK
+        int product_id FK
+        datetime created_at
+        datetime updated_at
+    }
+```

@@ -33,6 +33,8 @@ class Customer::SessionsController < Devise::SessionsController
 
     alert_message = if customer.status == 'withdrawn'
                       'You have already resigned'
+                    elsif customer.confirmed? == false
+                      'Your account has not been activated'
                     else
                       'Your account is suspended'
                     end

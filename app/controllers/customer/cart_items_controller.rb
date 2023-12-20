@@ -13,8 +13,14 @@ class Customer::CartItemsController < ApplicationController
   end
 
   def increase
-    @cart_item.increment!(:quantity, 1)
-    redirect_to request.referer, notice: 'Successfully updated your cart'
+    product = @cart_item.product
+
+    if product.stock >= (@cart_item.quantity + 1)
+      @cart_item.increment!(:quantity, 1)
+      redirect_to request.referer, notice: 'Successfully updated your cart'
+    else
+      redirect_to request.referer, alert: 'Not enough stock available'
+    end
   end
 
   def decrease
