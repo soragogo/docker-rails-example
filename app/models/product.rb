@@ -7,6 +7,7 @@ class Product < ApplicationRecord
     validates :image
   end
 
+  
   validate :image_type
 
   has_one_attached :image
@@ -23,4 +24,6 @@ class Product < ApplicationRecord
   scope :price_low_to_high, -> { order(price: :asc) }
   has_many :cart_items, dependent: :destroy
   has_many :order_details, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_customers, through: :likes, source: :customer, dependent: :destroy
 end

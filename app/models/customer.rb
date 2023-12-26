@@ -16,6 +16,8 @@ class Customer < ApplicationRecord
   }
   has_many :cart_items, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_products, through: :likes, source: :product, dependent: :destroy
 
   def line_items_checkout
     cart_items.map do |cart_item|
