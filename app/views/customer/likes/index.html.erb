@@ -1,3 +1,14 @@
+<div class="text-center" , style="padding: 10px 10px 10px 10px;">
+  <h2 class="text-2xl font-bold mb-4">Categories</h2>
+  <div class="flex flex-wrap gap-2 justify-center">
+    <% @categories.each do |category| %>
+      <div class="<%= category_active_class(category) %> rounded p-2">
+        <%= link_to Product.categories.key(category), likes_path(category: category), class: "text-gray-700 hover:text-gray-900" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
 <div class="mb-8 text-center">
   <span class="text-3xl font-bold">
     Products You Liked

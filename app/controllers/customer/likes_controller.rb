@@ -1,7 +1,13 @@
 class Customer::LikesController < ApplicationController
   before_action :authenticate_customer!
   def index
+    @categories = Product.categories.values
     @products, @sort = get_likes(params)
+    @selected_category = params[:category]
+
+    if @selected_category
+      @products = @products.where(category: @selected_category)
+    end
   end
 
   def create
