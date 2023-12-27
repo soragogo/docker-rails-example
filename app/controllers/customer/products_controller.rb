@@ -7,8 +7,8 @@ class Customer::ProductsController < ApplicationController
     @selected_category = params[:category]
     @products, @sort = get_products(params)
 
-    if @selected_category && Product.categories.key?(@selected_category.to_i)
-      @products = @products.where(category_id: @selected_category)
+    if @selected_category
+      @products = @products.where(category: @selected_category)
     end
   end
 
