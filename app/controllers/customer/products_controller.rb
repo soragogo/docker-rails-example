@@ -1,9 +1,15 @@
 class Customer::ProductsController < ApplicationController
   helper_method :product_liked?
-  
+
 
   def index
+    @categories = Product.categories.values
+    @selected_category = params[:category]
     @products, @sort = get_products(params)
+
+    if @selected_category && Product.categories.key?(@selected_category.to_i)
+      @products = @products.where(category_id: @selected_category)
+    end
   end
 
   def show
@@ -11,7 +17,7 @@ class Customer::ProductsController < ApplicationController
 
     if @product.nil?
       redirect_to products_path, flash: { error: 'Product could not be found' }
-    else
+    elsif !current_customer.nil?
       @cart_item = CartItem.new
       @like = Like.find_by(customer_id: current_customer.id, product_id: @product.id)
     end

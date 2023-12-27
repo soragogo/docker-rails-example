@@ -1,4 +1,5 @@
 class Customer::LikesController < ApplicationController
+  before_action :authenticate_customer!
   def index
     @products, @sort = get_likes(params)
   end

@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   scope module: :customer do
     resources :likes, only: %i[index]
     resources :products, only: %i[index show] do
+      collection do
+        resources :category, only: %i[index]
+      end
       resources :likes, only: %i[create destroy]
     end
     resources :cart_items, only: %i[index create destroy] do

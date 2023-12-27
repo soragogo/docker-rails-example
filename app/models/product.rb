@@ -12,6 +12,19 @@ class Product < ApplicationRecord
 
   has_one_attached :image
 
+  enum category:{
+    outer: 0,
+    tops: 1,
+    shirt: 2,
+    pants: 3,
+    skirt: 4,
+    dresses: 5,
+    goods: 6, 
+    accessory: 7,
+    bags: 8, 
+    shoes: 9
+  }
+
   private
 
   def image_type
