@@ -13,16 +13,16 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   enum category:{
-    outer: 0,
-    tops: 1,
-    shirt: 2,
-    pants: 3,
-    skirt: 4,
-    dresses: 5,
-    goods: 6, 
-    accessory: 7,
-    bags: 8, 
-    shoes: 9
+    outer: 1,
+    tops: 2,
+    shirt: 3,
+    pants: 4,
+    skirt: 5,
+    dresses: 6,
+    goods: 7, 
+    accessory: 8,
+    bags: 9, 
+    shoes: 10
   }
 
   private

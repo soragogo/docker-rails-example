@@ -7,8 +7,12 @@ class Customer::ProductsController < ApplicationController
     @selected_category = params[:category]
     @products, @sort = get_products(params)
 
-    if @selected_category
+    if @selected_category && @selected_category != "0"
       @products = @products.where(category: @selected_category)
+    end
+
+    if params[:search]
+      @products = @products.where("name LIKE ?", "%#{params[:search]}%")
     end
   end
 
@@ -43,4 +47,7 @@ class Customer::ProductsController < ApplicationController
 
     [Product.price_low_to_high, 'price_low_to_high'] if params[:price_low_to_high]
   end
+
+  
 end
+
