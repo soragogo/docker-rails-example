@@ -1,6 +1,9 @@
-<div class="text-center" , style="padding: 10px 10px 10px 10px;">
+<div class="mb-8 text-center">
+  <span class="text-3xl font-bold">Products</span>
+</div>
+<div class="text-left" , style="padding: 10px 10px 10px 10px;">
   <h2 class="text-2xl font-bold mb-4"></h2>
-  <div class="flex flex-wrap gap-2 justify-center">
+  <div class="flex flex-wrap gap-2 justify-left">
     <div class="<%= category_active_class(0) %> rounded p-2">
     <%= link_to 'All', products_path(category: 0), class: "text-gray-700 hover:text-gray-900" %>
     </div>
@@ -11,26 +14,24 @@
     <% end %>
   </div>
 </div>
-<div class="mb-8 text-center">
-  <span class="text-3xl font-bold">Products</span>
-</div>
 
 <div class="flex flex-wrap justify-center md:justify-start px-5">
-  <div class="mb-3 w-fit text-md font-medium mr-2 px-4 py-1.5 rounded <%= @sort === "latest" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+  <div class="mb-3 w-fit text-md mr-2 px-4 py-1.5 rounded <%= @sort === "latest" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Latest', products_path({ latest: true }.merge(params.permit(:category))) %>
   </div>
-  <div class="mb-3 w-fit text-md font-medium mr-2 px-4 py-1.5 rounded <%= @sort === "price_high_to_low" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+  <div class="mb-3 w-fit text-md mr-2 px-4 py-1.5 rounded <%= @sort === "price_high_to_low" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Price: High to Low', products_path({ price_high_to_low: true }.merge(params.permit(:category))) %>
   </div>
-  <div class="mb-3 w-fit text-md font-medium mr-2 px-4 py-1.5 rounded <%= @sort === "price_low_to_high" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+  <div class="mb-3 w-fit text-md mr-2 px-4 py-1.5 rounded <%= @sort === "price_low_to_high" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Price: Low to High', products_path({ price_low_to_high: true }.merge(params.permit(:category))) %>
   </div>
 </div>
 
 <div class="container mx-auto my-4">
-  <%= form_tag(products_path, method: :get, class: "flex items-center justify-center") do %>
+  <%= form_tag(products_path, method: :get, class: "flex items-center justify-end") do %>
     <div class="flex items-center border-b border-b-2 border-gray-500 py-2">
       <%= text_field_tag :search, params[:search], class: "appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none", placeholder: "Search by product name" %>
+      <%= hidden_field_tag :category, params[:category] %>
       <%= submit_tag "Search", class: "flex-shrink-0 bg-gray-500 hover:bg-gray-700 border-gray-500 hover:border-gray-700 text-sm border-4 text-white py-1 px-2 rounded", type: "button" %>
     </div>
   <% end %>

@@ -1,6 +1,14 @@
-<div class="text-center" , style="padding: 10px 10px 10px 10px;">
-  <h2 class="text-2xl font-bold mb-4">Categories</h2>
-  <div class="flex flex-wrap gap-2 justify-center">
+<div class="mb-8 text-center">
+  <span class="text-3xl font-bold">
+    Products You Liked
+  </span>
+</div>
+<div class="text-left" , style="padding: 10px 10px 10px 10px;">
+  <h2 class="text-2xl font-bold mb-4"></h2>
+  <div class="flex flex-wrap gap-2 justify-left">
+  <div class="<%= category_active_class(0) %> rounded p-2">
+  <%= link_to 'All', likes_path(category: 0), class: "text-gray-700 hover:text-gray-900" %>
+  </div>
     <% @categories.each do |category| %>
       <div class="<%= category_active_class(category) %> rounded p-2">
         <%= link_to Product.categories.key(category), likes_path(category: category), class: "text-gray-700 hover:text-gray-900" %>
@@ -9,19 +17,14 @@
   </div>
 </div>
 
-<div class="mb-8 text-center">
-  <span class="text-3xl font-bold">
-    Products You Liked
-  </span>
-</div>
 <div class="flex flex-wrap justify-center md:justify-start px-5">
-  <div class="mb-3 w-fit text-md font-medium mr-2 px-4 py-1.5 rounded <%= @sort === "latest" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+  <div class="mb-3 w-fit text-md font mr-2 px-4 py-1.5 rounded <%= @sort === "latest" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Latest', likes_path(latest: true) %>
   </div>
-  <div class="mb-3 w-fit text-md font-medium mr-2 px-4 py-1.5 rounded <%= @sort === "price_high_to_low" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+  <div class="mb-3 w-fit text-md font mr-2 px-4 py-1.5 rounded <%= @sort === "price_high_to_low" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Price: High to Low', likes_path(price_high_to_low: true) %>
   </div>
-  <div class="mb-3 w-fit text-md font-medium mr-2 px-4 py-1.5 rounded <%= @sort === "price_low_to_high" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+  <div class="mb-3 w-fit text-md font mr-2 px-4 py-1.5 rounded <%= @sort === "price_low_to_high" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Price: Low to High', likes_path(price_low_to_high: true) %>
   </div>
 </div>

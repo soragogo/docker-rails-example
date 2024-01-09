@@ -5,7 +5,7 @@ class Customer::LikesController < ApplicationController
     @products, @sort = get_likes(params)
     @selected_category = params[:category]
 
-    if @selected_category
+    if @selected_category && @selected_category != "0"
       @products = @products.where(category: @selected_category)
     end
   end
