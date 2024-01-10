@@ -39,4 +39,6 @@ class Product < ApplicationRecord
   has_many :order_details, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :liked_customers, through: :likes, source: :customer, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :reviewed_customers, through: :likes, source: :customer, dependent: :destroy
 end

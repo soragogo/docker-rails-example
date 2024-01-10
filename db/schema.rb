@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_27_043842) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_09_095045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -133,6 +133,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_043842) do
     t.integer "category", default: 0, null: false
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.bigint "product_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_reviews_on_customer_id"
+    t.index ["product_id"], name: "index_reviews_on_product_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "customers"
@@ -142,4 +153,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_27_043842) do
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "customers"
+  add_foreign_key "reviews", "customers"
+  add_foreign_key "reviews", "products"
 end

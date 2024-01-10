@@ -4,7 +4,7 @@ class Customer::ProductsController < ApplicationController
 
   def index
     @categories = Product.categories.values
-    @selected_category = params[:category]
+    @selected_category = params[:category] == "" ? "0" : params[:category]
     @products, @sort = get_products(params)
 
     if @selected_category && @selected_category != "0"

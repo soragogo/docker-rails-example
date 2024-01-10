@@ -7,6 +7,8 @@ erDiagram
     PRODUCTS ||--o{ ORDER_DETAILS : ""
     PRODUCTS ||--o{ CART_ITEMS : ""
     PRODUCTS ||--o{ LIKES: ""
+    CUSTOMERS ||--o{ REVIEWS: ""
+    PRODUCTS ||--o{ REVIEWS: ""
 
     CUSTOMERS {
         int id PK
@@ -47,6 +49,16 @@ erDiagram
         int postage
         int billing_amount
         int status
+        datetime created_at
+        datetime updated_at
+    }
+
+    REVIEWS {
+        int id PK
+        int customer_id FK
+        int product_id FK
+        int rating
+        text comment
         datetime created_at
         datetime updated_at
     }
