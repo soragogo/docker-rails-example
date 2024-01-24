@@ -8,13 +8,19 @@ class Customer::CartItemsController < ApplicationController
   end
 
   def create
-    increase_or_create(params[:cart_item][:product_id])
-    redirect_to cart_items_path, notice: 'Successfully added product to your cart'
+    product_id = params.dig(:cart_item, :product_id)
+    cart_item = current_customer.cart_items.find_by(product_id: product_id)
+  
+    if cart_item && cart_item.quantity >= Product.find_by(id: product_id).stock
+      redirect_to request.referer, alert: 'Not enough stock available'
+    else
+      increase_or_create(params[:cart_item][:product_id])
+      redirect_to cart_items_path, notice: 'Successfully added product to your cart'
+    end
   end
 
   def increase
     product = @cart_item.product
-
     if product.stock >= (@cart_item.quantity + 1)
       @cart_item.increment!(:quantity, 1)
       redirect_to request.referer, notice: 'Successfully updated your cart'

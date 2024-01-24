@@ -20,8 +20,6 @@ Rails.application.routes.draw do
   end
 
 
-
-
   
   scope module: :customer do
     resources :likes, only: %i[index]

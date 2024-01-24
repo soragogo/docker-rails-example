@@ -1,0 +1,6 @@
+
+product_one:
+  name: example product1
+  description: example product 1
+  price: 4242
+  stock: 4242

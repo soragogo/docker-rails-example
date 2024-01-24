@@ -81,3 +81,4 @@ end
 
 gem "devise"
 gem "stripe"
+gem "bcrypt"

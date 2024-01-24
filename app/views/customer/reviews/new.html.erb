@@ -1,0 +1,22 @@
+<h1 class="text-2xl font-bold mb-4">Create New Review</h1>
+
+<%= form_with(model: @review, url: product_reviews_path(params[:product_id]), class: "max-w-md") do |f| %>
+  <%= f.hidden_field :product_id, value: params[:product_id] %>
+
+  <div class="mb-4">
+    <%= f.label :rating, class: "block text-sm font-semibold text-gray-600" %>
+    <%= f.text_field :rating, class: "w-full border rounded-md px-3 py-2 mt-1" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :comment, class: "block text-sm font-semibold text-gray-600" %>
+    <%= f.text_field :comment, class: "w-full border rounded-md px-3 py-2 mt-1" %>
+  </div>
+
+  <div class="flex items-center">
+    <%= f.submit "Submit", class: "bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" %>
+  </div>
+<% end %>
+
+
+
