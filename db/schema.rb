@@ -134,7 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_09_095045) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.integer "rating"
+    t.integer "star"
     t.text "comment"
     t.bigint "product_id", null: false
     t.bigint "customer_id", null: false

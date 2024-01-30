@@ -28,7 +28,7 @@ class Customer::ReviewsController < ApplicationController
   
   def update
     @review = Review.find_by(id: params[:id])
-    @review.rating = params[:review][:rating]
+    @review.star = params[:review][:star]
     @review.comment = params[:review][:comment]
     if @review.save
       redirect_to product_path(@review.product), notice: 'Review was successfully updated.'
@@ -39,7 +39,7 @@ class Customer::ReviewsController < ApplicationController
 
     private
     def review_params
-        params.require(:review).permit(:rating, :comment, :product_id)
+        params.require(:review).permit(:star, :comment, :product_id)
     end
 
     def has_bought?

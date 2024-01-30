@@ -70,9 +70,9 @@
     <% @product.reviews.each do |review| %>
       <div class="border p-4 mb-4 flex items-center justify-between">
         <div>
-          <p class="font-bold">Rating:</p>
+          <p class="font-bold">star:</p>
           <div class="flex">
-            <% review.rating.times do %>
+            <% review.star.to_i.times do %>
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-5 w-5 text-yellow-500" viewBox="0 0 20 20">
                 <path d="M10 1l2.5 6h6.5l-5 4.5 2 7.5-6-4.5-6 4.5 2-7.5-5-4.5h6.5l2.5-6z"/>
               </svg>

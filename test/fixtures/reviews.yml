@@ -1,6 +1,6 @@
 
 review_one:
-  rating: 4
+  star: "4"
   comment: This is review 1
   customer: customer_one
   product: product_one
