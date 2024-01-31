@@ -66,27 +66,33 @@
       <h3 class="text-gray-700 p-2 m-2 inline-block">Customer Reviews <%= "(#{@product.reviews.count})" if @product.reviews.any? %></h3>
       
       <div class="my-4">
-  <% if @product.reviews.any? %>
-    <% @product.reviews.each do |review| %>
-      <div class="border p-4 mb-4 flex items-center justify-between">
-        <div>
-          <p class="font-bold">star:</p>
-          <div class="flex">
-            <% review.star.to_i.times do %>
-              <img src="/assets/star-on.png" alt="Star" class="h-5 w-5 text-yellow-500">
+      <% if @product.reviews.any? %>
+      <% @product.reviews.each do |review| %>
+        <div class="border p-4 mb-4 flex flex-col md:flex-row items-center md:justify-between">
+          <div class="md:w-1/4">
+            <p class="font-bold">Star:</p>
+            <div class="flex">
+              <% review.star.to_i.times do %>
+                <img src="/assets/star-on.png" alt="Star" class="h-5 w-5 text-yellow-500">
+              <% end %>
+            </div>
+          </div>
+          <div class="md:w-1/4">
+            <p class="font-bold">Reviewer:</p>
+            <p><%= review.customer.name %></p>
+          </div>
+          <div class="md:w-1/4">
+            <p class="font-bold">Review:</p>
+            <p><%= review.comment %></p>
+          </div>
+          <div class="md:w-1/4">
+            <% if review.customer_id == current_customer.id %>
+              <%= link_to "Delete Review", product_review_path(product_id: review.product_id, id: review.id), class: "text-red-600 hover:text-red-800", data: { turbo_method: :delete }, data: {turbo_method: :delete} %>
             <% end %>
           </div>
         </div>
-        <div>
-          <p class="font-bold">Reviewer:</p>
-          <p><%= review.customer.name %></p>
-        </div>
-        <div>
-          <p class="font-bold">Review:</p>
-          <p><%= review.comment %></p>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
+    
   <% else %>
     <p>No reviews available for this product.</p>
   <% end %>

@@ -28,7 +28,7 @@ Rails.application.routes.draw do
         resources :category, only: %i[index]
       end
       resources :likes, only: %i[create destroy]
-      resources :reviews, only: %i[new create edit update]
+      resources :reviews, only: %i[new create edit update destroy]
     end
     resources :cart_items, only: %i[index create destroy] do
       member do

@@ -37,6 +37,13 @@ class Customer::ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @review = Review.find_by(id: params[:id])
+    if @review && @review.destroy
+      redirect_to request.referer, notice: 'Successfully deleted your review'
+    end
+  end
+
     private
     def review_params
         params.require(:review).permit(:star, :comment, :product_id)
