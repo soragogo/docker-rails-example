@@ -3,10 +3,11 @@
 <%= form_with(model: @review, url: product_review_path(params[:product_id], params[:id]),method: "patch", class: "max-w-md") do |f| %>
   <%= f.hidden_field :product_id, value: params[:product_id] %>
 
-  <div class="mb-4">
-    <%= f.label :star, class: "block text-sm font-semibold text-gray-600" %>
-    <%= f.text_field :star, class: "w-full border rounded-md px-3 py-2 mt-1" %>
-  </div>
+  <div class="modal-header flex justify-between items-center">
+  <h1 class="modal-title fs-5" id="exampleModalLabel"><div id="star_<%= @review.id %>" class="flex flex-row mb-4"></div></h1>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
 
   <div class="mb-4">
     <%= f.label :comment, class: "block text-sm font-semibold text-gray-600" %>
@@ -20,3 +21,13 @@
 
 
 
+<script>
+  $(document).ready(function() {
+    var originalStarCount = <%= @review.star %>;
+    $('#star_<%= @review.id %>').raty({
+      path: '/assets',
+      scoreName: 'review[star]',
+      score: originalStarCount
+    });
+  });
+</script>
