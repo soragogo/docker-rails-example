@@ -34,7 +34,10 @@ class Admin::ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:id])
+    @product = Product.find_by(id: params[:id])
+    if @product.nil?
+      redirect_to admin_products_path, flash: { error: 'Product could not be found' }
+    end
   end
 
   def product_params

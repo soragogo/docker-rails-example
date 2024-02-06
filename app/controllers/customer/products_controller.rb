@@ -1,6 +1,6 @@
 class Customer::ProductsController < ApplicationController
   helper_method :product_liked?
-  before_action :authenticate_customer!, only: [:show]
+  before_action :check_customer_or_admin, only: [:show]
 
   def index
     @categories = Product.categories.values
@@ -18,16 +18,29 @@ class Customer::ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
-    @review = Review.find_by(customer_id: current_customer.id, product_id: @product.id)
     if @product.nil?
       redirect_to products_path, flash: { error: 'Product could not be found' }
     elsif !current_customer.nil?
+      @review = Review.find_by(customer_id: current_customer.id, product_id: @product.id)
       @cart_item = CartItem.new
       @like = Like.find_by(customer_id: current_customer.id, product_id: @product.id)
     end
   end
 
   private
+
+  def check_customer_or_admin
+    if current_customer.nil? && current_admin.nil?
+      redirect_to new_customer_session_path,  notice: 'You have to sign in or sign up before continuing.'
+    elsif current_customer.nil?
+      @product = Product.find_by(id: params[:id])
+        if @product.nil?
+          redirect_to products_path, flash: { error: 'Product could not be found' }
+        else
+          redirect_to admin_product_path(@product)
+        end
+    end
+  end
 
   def product_liked?
     unless @product.likes.find_by(customer_id: current_customer).nil?
