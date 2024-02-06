@@ -57,7 +57,7 @@ erDiagram
         int id PK
         int customer_id FK
         int product_id FK
-        string star
+         star
         text comment
         datetime created_at
         datetime updated_at

@@ -46,23 +46,19 @@ class Customer::CartItemsController < ApplicationController
 
   def increase_or_create(product_id)
     product = Product.find_by(id: product_id)
+    return redirect_to request.referer, alert: 'Product is not available' unless product && product.stock > 0
+  
     cart_item = current_customer.cart_items.find_by(product_id: product_id)
-    
-    if product && product.stock > 0
-      if cart_item
-        if product.stock > cart_item.quantity
-          cart_item.increment!(:quantity, 1)
-          redirect_to cart_items_path, notice: 'Successfully added product to your cart'
-        else
-          redirect_to request.referer, alert: 'Not enough stock available'
-        end
-      else
-        current_customer.cart_items.create(product_id: product_id, quantity: 1)
-      end
+    if cart_item
+      return redirect_to request.referer, alert: 'Not enough stock available' unless product.stock > cart_item.quantity
+      cart_item.increment!(:quantity, 1)
     else
-      redirect_to request.referer, alert: 'Product is not available'
+      current_customer.cart_items.create(product_id: product_id, quantity: 1)
     end
+  
+    redirect_to cart_items_path, notice: 'Successfully added product to your cart'
   end
+  
   
   
   def decrease_or_destroy(cart_item)

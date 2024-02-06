@@ -25,6 +25,11 @@ class Product < ApplicationRecord
     shoes: 10
   }
 
+  def average_star
+    return 0 if reviews.empty?
+    reviews.average(:star).to_f.round(2)
+  end
+  
   private
 
   def image_type
@@ -41,4 +46,5 @@ class Product < ApplicationRecord
   has_many :liked_customers, through: :likes, source: :customer, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :reviewed_customers, through: :likes, source: :customer, dependent: :destroy
+
 end

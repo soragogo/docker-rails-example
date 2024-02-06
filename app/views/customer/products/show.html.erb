@@ -64,7 +64,7 @@
       </div>
       </div>
       <h3 class="text-gray-700 p-2 m-2 inline-block">Customer Reviews <%= "(#{@product.reviews.count})" if @product.reviews.any? %></h3>
-      
+      <%= @product.average_star %>
       <div class="my-4">
       <% if @product.reviews.any? %>
       <% @product.reviews.each do |review| %>
@@ -72,7 +72,7 @@
           <div class="md:w-1/4">
             <p class="font-bold">Star:</p>
             <div class="flex">
-              <% review.star.to_i.times do %>
+              <% review.star.times do %>
                 <img src="/assets/star-on.png" alt="Star" class="h-5 w-5 text-yellow-500">
               <% end %>
             </div>
