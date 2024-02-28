@@ -18,6 +18,12 @@ RUN bash -c "set -o pipefail && apt-get update \
   && useradd --create-home --no-log-init -u \"${UID}\" -g \"${GID}\" ruby \
   && mkdir /node_modules && chown ruby:ruby -R /node_modules /app"
 
+COPY package.json yarn.lock ./
+RUN yarn install
+# アセットビルドコマンドを実行
+RUN yarn build
+
+
 USER ruby
 
 COPY --chown=ruby:ruby Gemfile* ./
