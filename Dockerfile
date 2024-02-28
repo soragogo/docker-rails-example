@@ -24,6 +24,7 @@ COPY --chown=ruby:ruby Gemfile* ./
 RUN bundle install --jobs "$(nproc)"
 
 COPY --chown=ruby:ruby package.json *yarn* ./
+RUN rm -f package-lock.json && yarn install
 RUN yarn install
 
 ARG RAILS_ENV="production"
