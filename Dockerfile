@@ -8,7 +8,7 @@ ARG GID=1000
 
 RUN bash -c "set -o pipefail && apt-get update \
   && apt-get install -y --no-install-recommends build-essential curl git libpq-dev \
-  && curl -sSL https://deb.nodesource.com/setup_14.x | bash - \
+  && curl -sSL https://deb.nodesource.com/setup_18.x | bash - \
   && curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo 'deb https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list \
   && apt-get update && apt-get install -y --no-install-recommends nodejs yarn \
@@ -24,7 +24,6 @@ COPY --chown=ruby:ruby Gemfile* ./
 RUN bundle install --jobs "$(nproc)"
 
 COPY --chown=ruby:ruby package.json *yarn* ./
-RUN rm -f package-lock.json && yarn install
 RUN yarn install
 
 ARG RAILS_ENV="production"
@@ -50,14 +49,6 @@ WORKDIR /app
 
 ARG UID=1000
 ARG GID=1000
-
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get update && \
-    apt-get install -y nodejs && \
-    apt-get install -y npm && \
-    npm install --global yarn && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends build-essential curl libpq-dev vim \
