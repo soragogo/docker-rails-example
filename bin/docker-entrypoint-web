@@ -20,5 +20,5 @@ if compgen -G "${manifest_files}" > /dev/null 2>&1; then
     -delete
 fi
 
-/bin/render-build.sh
+/app/bin/render-build.sh
 exec "$@"
