@@ -50,6 +50,13 @@ WORKDIR /app
 ARG UID=1000
 ARG GID=1000
 
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get update && \
+    apt-get install -y nodejs && \
+    npm install --global yarn && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
+
 RUN apt-get update \
  && apt-get install -y --no-install-recommends build-essential curl libpq-dev vim \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
