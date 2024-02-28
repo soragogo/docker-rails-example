@@ -18,12 +18,6 @@ RUN bash -c "set -o pipefail && apt-get update \
   && useradd --create-home --no-log-init -u \"${UID}\" -g \"${GID}\" ruby \
   && mkdir /node_modules && chown ruby:ruby -R /node_modules /app"
 
-COPY package.json yarn.lock ./
-RUN yarn install
-# アセットビルドコマンドを実行
-RUN yarn build
-
-
 USER ruby
 
 COPY --chown=ruby:ruby Gemfile* ./
@@ -31,6 +25,7 @@ RUN bundle install --jobs "$(nproc)"
 
 COPY --chown=ruby:ruby package.json *yarn* ./
 RUN yarn install
+RUN yarn build
 
 ARG RAILS_ENV="production"
 ARG NODE_ENV="production"
@@ -41,8 +36,8 @@ ENV RAILS_ENV="${RAILS_ENV}" \
 
 COPY --chown=ruby:ruby . .
 
-# RUN if [ "${RAILS_ENV}" != "development" ]; then \
-#   SECRET_KEY_BASE=dummyvalue rails assets:precompile; fi
+RUN if [ "${RAILS_ENV}" != "development" ]; then \
+  SECRET_KEY_BASE=dummyvalue rails assets:precompile; fi
 
 CMD ["bash"]
 
