@@ -50,7 +50,7 @@ WORKDIR /app
 ARG UID=1000
 ARG GID=1000
 
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs && \
     npm install --global yarn && \
