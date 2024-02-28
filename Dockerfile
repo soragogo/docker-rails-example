@@ -25,7 +25,6 @@ RUN bundle install --jobs "$(nproc)"
 
 COPY --chown=ruby:ruby package.json *yarn* ./
 RUN yarn install
-RUN yarn build
 
 ARG RAILS_ENV="production"
 ARG NODE_ENV="production"
