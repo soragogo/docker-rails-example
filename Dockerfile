@@ -58,6 +58,13 @@ RUN apt-get update \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" ruby \
   && chown ruby:ruby -R /app
 
+# Node.js のセットアップ
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs
+
+# Yarn のインストール
+RUN npm install --global yarn
+
 USER ruby
 
 COPY --chown=ruby:ruby bin/ ./bin
