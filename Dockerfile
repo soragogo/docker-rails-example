@@ -16,7 +16,7 @@ RUN bash -c "set -o pipefail && apt-get update \
   && apt-get clean \
   && groupadd -g \"${GID}\" ruby \
   && useradd --create-home --no-log-init -u \"${UID}\" -g \"${GID}\" ruby \
-  && sudo mkdir /node_modules && chown ruby:ruby -R /node_modules /app"
+  && mkdir -p /app/node_modules && chown ruby:ruby -R /app/node_modules"
 
 USER ruby
 
@@ -30,7 +30,7 @@ ARG RAILS_ENV="production"
 ARG NODE_ENV="production"
 ENV RAILS_ENV="${RAILS_ENV}" \
     NODE_ENV="${NODE_ENV}" \
-    PATH="${PATH}:/home/ruby/.local/bin:/node_modules/.bin" \
+    PATH="${PATH}:/home/ruby/.local/bin:/app/node_modules/.bin" \
     USER="ruby"
 
 COPY --chown=ruby:ruby . .
@@ -57,13 +57,6 @@ RUN apt-get update \
   && groupadd -g "${GID}" ruby \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" ruby \
   && chown ruby:ruby -R /app
-
-# Node.js のセットアップ
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs
-
-# Yarn のインストール
-RUN npm install --global yarn
 
 USER ruby
 
