@@ -53,6 +53,7 @@ ARG GID=1000
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs && \
+    apt-get install -y npm && \
     npm install --global yarn && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man
