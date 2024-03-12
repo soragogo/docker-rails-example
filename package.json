@@ -12,6 +12,8 @@
   },
   "scripts": {
     "build": "./run yarn:build",
-    "build:css": "./run yarn:build:css"
+    "build:css": "./run yarn:build:css",
+    "build:esbuild": "esbuild app/javascript/*.* --outdir=app/assets/builds --bundle"
+    
   }
 }
