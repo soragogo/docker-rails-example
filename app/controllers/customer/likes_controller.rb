@@ -8,6 +8,12 @@ class Customer::LikesController < ApplicationController
     if @selected_category && @selected_category != "0"
       @products = @products.where(category: @selected_category)
     end
+    if params[:average_star_low_to_high]
+      @products = @products.sort_by { |product| product.average_star }
+    end
+    if params[:average_star_high_to_low]
+      @products = @products.sort_by { |product| -product.average_star }
+    end
   end
 
   def create
