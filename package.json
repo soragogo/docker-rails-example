@@ -11,9 +11,7 @@
     "tailwindcss": "3.2.4"
   },
   "scripts": {
-    "build:esbuild": "esbuild app/javascript/*.* --outdir=app/assets/builds --bundle",
     "build": "./run yarn:build",
     "build:css": "./run yarn:build:css"
-    
   }
 }
