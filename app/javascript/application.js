@@ -4,4 +4,4 @@ import "@hotwired/turbo-rails"
 // Stimulus controllers.
 import "./controllers"
 
-import "./assets/stylesheets/application.tailwind.css"
+import "./../assets/stylesheets/application.tailwind.css"
