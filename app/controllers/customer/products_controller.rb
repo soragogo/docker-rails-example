@@ -14,6 +14,13 @@ class Customer::ProductsController < ApplicationController
     if params[:search]
       @products = @products.where("name LIKE ?", "%#{params[:search]}%")
     end
+
+    if params[:average_star_low_to_high]
+      @products = @products.sort_by { |product| product.average_star }
+    end
+    if params[:average_star_high_to_low]
+      @products = @products.sort_by { |product| -product.average_star }
+    end
   end
 
   def show
@@ -51,10 +58,11 @@ class Customer::ProductsController < ApplicationController
   end
   
   def get_products(params)
-    return Product.all, 'default' unless params[:latest] || params[:price_high_to_low] || params[:price_low_to_high]
+    return Product.all, 'default' unless params[:latest] || params[:price_high_to_low] || params[:price_low_to_high] || params[:average_star_high_to_low] || params[:average_star_low_to_high]
     return Product.latest, 'latest' if params[:latest]
     return Product.price_high_to_low, 'price_high_to_low' if params[:price_high_to_low]
-    [Product.price_low_to_high, 'price_low_to_high'] if params[:price_low_to_high]
-
+    return Product.price_low_to_high, 'price_low_to_high' if params[:price_low_to_high]
+    return Product.all, 'average_star_high_to_low' if params[:average_star_high_to_low]
+    return Product.all, 'average_star_low_to_high' if params[:average_star_low_to_high]
   end
 end

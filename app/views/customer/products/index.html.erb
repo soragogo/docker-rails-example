@@ -24,7 +24,13 @@
   </div>
   <div class="mb-3 w-fit text-md mr-2 px-4 py-1.5 rounded <%= @sort === "price_low_to_high" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
     <%= link_to 'Price: Low to High', products_path({ price_low_to_high: true }.merge(params.permit(:category))) %>
-</div>
+  </div>
+  <div class="mb-3 w-fit text-md mr-2 px-4 py-1.5 rounded <%= @sort === "average_star_high_to_low" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+    <%= link_to 'Star: High to Low', products_path({ average_star_high_to_low: true }.merge(params.permit(:category))) %>
+  </div>
+  <div class="mb-3 w-fit text-md mr-2 px-4 py-1.5 rounded <%= @sort === "average_star_low_to_high" ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-800" %>">
+    <%= link_to 'Star: Low to High', products_path({ average_star_low_to_high: true }.merge(params.permit(:category))) %>
+  </div>
 
 <div class="container mx-auto my-4">
   <%= form_tag(products_path, method: :get, class: "flex items-center justify-end") do %>
