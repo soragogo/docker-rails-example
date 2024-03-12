@@ -32,11 +32,12 @@ class Customer::LikesController < ApplicationController
 
   def get_likes(params)
     @products = current_customer.liked_products
-    return @products.all, 'default' unless params[:latest] || params[:price_high_to_low] || params[:price_low_to_high]
-
+    return @products.all, 'default' unless params[:latest] || params[:price_high_to_low] || params[:price_low_to_high] || params[:average_star_high_to_low] || params[:average_star_low_to_high]
     return @products.latest, 'latest' if params[:latest]
-
     return @products.price_high_to_low, 'price_high_to_low' if params[:price_high_to_low]
+    return @products.price_low_to_high, 'price_low_to_high' if params[:price_low_to_high]
+    return @products.all, 'average_star_high_to_low' if params[:average_star_high_to_low]
+    return @products.all, 'average_star_low_to_high' if params[:average_star_low_to_high]
 
   end
 end
