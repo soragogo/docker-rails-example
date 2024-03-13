@@ -70,7 +70,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  hotst = 'https://ecommerce-zl3h.onrender.com'
+  host = 'https://ecommerce-zl3h.onrender.com'
   config.action_mailer.default_url_options ={ host: host}
   
   ActionMailer::Base.smtp_settings = {
